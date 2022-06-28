@@ -7,11 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SearchFlightService
+namespace APIGateway
 {
-    /// <summary>
-    /// App Entry point class
-    /// </summary>
     public class Program
     {
         public static void Main(string[] args)
@@ -24,6 +21,10 @@ namespace SearchFlightService
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+            .ConfigureAppConfiguration((hostingContext, config) =>
+            {
+                config.AddJsonFile("ocelot.json");
+            });
     }
 }

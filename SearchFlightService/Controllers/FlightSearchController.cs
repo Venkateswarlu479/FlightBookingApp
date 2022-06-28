@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FlightSearchService.Database;
+using FlightSearchService.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,14 +9,48 @@ using System.Threading.Tasks;
 
 namespace SearchFlightService.Controllers
 {
-    [Route("api/v1.0/flight")]
+    /// <summary>
+    /// FlightSearchController
+    /// </summary>
+    [Route("api/[controller]")]
     [ApiController]
     public class FlightSearchController : ControllerBase
     {
-        [HttpPost("Search")]
-        public string SearchFlight()
+        /// <summary>
+        /// _dataRepository
+        /// </summary>
+        IDataRepository _dataRepository;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="dataRepository"></param>
+        public FlightSearchController(IDataRepository dataRepository)
         {
-            return "No flights found at the moment";
+            _dataRepository = dataRepository;
+        }
+
+        [HttpGet]
+        public string TestAPIGateWay()
+        {
+            return "Called from API Gateway";
+        }
+
+        /// <summary>
+        /// Search flight based on input details
+        /// </summary>
+        /// <param name="flightSearchModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<ActionResult<IEnumerable<FlightDetails>>> SearchFlightAsync([FromBody] FlightSearchModel flightSearchModel)
+        {
+            if (flightSearchModel == null)
+                return BadRequest("Invalid Input");
+            var result = await _dataRepository.GetFlightDetails(flightSearchModel).ConfigureAwait(false);
+            if (result == null || result.Count() == 0)
+                return new List<FlightDetails>();
+
+            return Ok(result);
         }
     }
 }

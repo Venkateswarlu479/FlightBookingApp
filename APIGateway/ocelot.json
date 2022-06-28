@@ -1,0 +1,32 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/FlightSearch",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5674
+        }
+      ],
+      "Key": "searchKey",
+      "UpstreamPathTemplate": "/search/{flightDetailsModel}",
+      "UpstreamHttpMethods": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/FlightSearch",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5674
+        }
+      ],
+      "Key": "searchKey",
+      "UpstreamPathTemplate": "/search",
+      "UpstreamHttpMethods": [ "GET"]
+    }
+  ],
+
+  "GlobalConfiguration": {}
+}
