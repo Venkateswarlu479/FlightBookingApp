@@ -1,6 +1,7 @@
 using AutoMapper;
 using FlightBookingService.AutoMapper;
 using FlightBookingService.Database;
+using FlightBookingService.ServiceDiscovery;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -63,6 +64,8 @@ namespace FlightBookingService
                 options.OperationFilter<SecurityRequirementsOperationFilter>();
             });
 
+            services.AddConsulConfig();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -85,6 +88,8 @@ namespace FlightBookingService
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseConsul();
 
             app.UseEndpoints(endpoints =>
             {

@@ -1,6 +1,7 @@
 using AutoMapper;
 using ManageAirlinesService.AutoMapper;
 using ManageAirlinesService.Database;
+using ManageAirlinesService.ServiceDiscovery;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -64,6 +65,8 @@ namespace ManageAirlinesService
                 options.OperationFilter<SecurityRequirementsOperationFilter>();
             });
 
+            services.AddConsulConfig();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -86,6 +89,8 @@ namespace ManageAirlinesService
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseConsul();
 
             app.UseEndpoints(endpoints =>
             {

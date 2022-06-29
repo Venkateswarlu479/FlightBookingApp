@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using SearchFlightService.ServiceDiscovery;
 using Swashbuckle.AspNetCore.Filters;
 using System;
 using System.Collections.Generic;
@@ -59,6 +60,9 @@ namespace SearchFlightService
                 });
                 options.OperationFilter<SecurityRequirementsOperationFilter>();
             });
+
+            services.AddConsulConfig();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -81,6 +85,8 @@ namespace SearchFlightService
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseConsul();
 
             app.UseEndpoints(endpoints =>
             {

@@ -9,9 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ServiceDiscoveryAPI.Config
+namespace ManageAirlinesService.ServiceDiscovery
 {
-    public static class ServiceDiscoveryConfigurationExtension
+    public static class ServiceDiscoveryAppExtension
     {
         public static IServiceCollection AddConsulConfig(this IServiceCollection services)
         {
@@ -32,10 +32,10 @@ namespace ServiceDiscoveryAPI.Config
 
             var registration = new AgentServiceRegistration()
             {
-                ID = "Batch23DotNet",
-                Name = "Batch23DotNetCaseStudy1",
+                ID = "ManageAirline",
+                Name = "ManagerAirlineService",
                 Address = "localhost",
-                Port = 27301
+                Port = 7419
             };
 
             logger.LogInformation("Registering with Consul");
