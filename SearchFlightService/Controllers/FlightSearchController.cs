@@ -1,5 +1,6 @@
 ﻿using FlightSearchService.Database;
 using FlightSearchService.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,6 +15,7 @@ namespace SearchFlightService.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize(Roles = "Admin")]
     public class FlightSearchController : ControllerBase
     {
         /// <summary>

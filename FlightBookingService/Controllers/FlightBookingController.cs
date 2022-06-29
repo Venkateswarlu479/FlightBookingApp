@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FlightBookingService.Database;
 using FlightBookingService.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,6 +14,7 @@ namespace FlightBookingService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize(Roles = "Admin")]
     public class FlightBookingController : ControllerBase
     {
         private readonly IDataRepository _repository;

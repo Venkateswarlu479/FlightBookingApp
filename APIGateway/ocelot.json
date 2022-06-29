@@ -14,17 +14,69 @@
       "UpstreamHttpMethods": [ "POST" ]
     },
     {
-      "DownstreamPathTemplate": "/api/FlightSearch",
+      "DownstreamPathTemplate": "/api/FlightBooking",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5674
+          "Port": 22842
         }
       ],
-      "Key": "searchKey",
-      "UpstreamPathTemplate": "/search",
-      "UpstreamHttpMethods": [ "GET"]
+      "Key": "ticketBookKey",
+      "UpstreamPathTemplate": "/BookTicket/{bookingDetails}",
+      "UpstreamHttpMethods": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/FlightBooking",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 22842
+        }
+      ],
+      "Key": "ticketCancelKey",
+      "UpstreamPathTemplate": "/CancelTicket/{pnrNumber}",
+      "UpstreamHttpMethods": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/FlightBooking",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 22842
+        }
+      ],
+      "Key": "bookingHistoryKey",
+      "UpstreamPathTemplate": "/BookingHistory/{emailId}",
+      "UpstreamHttpMethods": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/FlightBooking",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 22842
+        }
+      ],
+      "Key": "passengerKey",
+      "UpstreamPathTemplate": "/PassengersData/{bookingId}",
+      "UpstreamHttpMethods": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/FlightBooking",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 22842
+        }
+      ],
+      "Key": "ticketKey",
+      "UpstreamPathTemplate": "/TicketDetails/{pnrNumber}",
+      "UpstreamHttpMethods": [ "GET" ]
     }
   ],
 
