@@ -1,20 +1,18 @@
 ﻿using AutoMapper;
-using ManageAirlinesService.Database;
-using ManageAirlinesService.Models;
+using FlightSearchService.Database;
+using FlightSearchService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ManageAirlinesService.AutoMapper
+namespace FlightSearchService.AutoMapper
 {
     public class MappingProfile : Profile
     {
         public MappingProfile()
         {
             //Two way Mapping of objects
-            CreateMap<AirlineDetailsModel, AirlineDetails>().ReverseMap();
-            CreateMap<FlightDetailsModel, FlightDetails>().ReverseMap();
             CreateMap<FlightDetails, Shared.Models.Models.FlightDetails>().ReverseMap();
         }
     }

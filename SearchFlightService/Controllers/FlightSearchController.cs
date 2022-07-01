@@ -32,12 +32,6 @@ namespace SearchFlightService.Controllers
             _dataRepository = dataRepository;
         }
 
-        [HttpGet]
-        public string TestAPIGateWay()
-        {
-            return "Called from API Gateway";
-        }
-
         /// <summary>
         /// Search flight based on input details
         /// </summary>

@@ -17,5 +17,12 @@ namespace FlightSearchService.Database
         /// <param name="flightSearchModel"></param>
         /// <returns></returns>
         Task<IEnumerable<FlightDetails>> GetFlightDetails(FlightSearchModel flightSearchModel);
+
+        /// <summary>
+        /// To save flight details in DB for search operation
+        /// </summary>
+        /// <param name="flightDetails"></param>
+        /// <returns></returns>
+        Task<string> SaveFlightDetailsAsync(FlightDetails flightDetails);
     }
 }

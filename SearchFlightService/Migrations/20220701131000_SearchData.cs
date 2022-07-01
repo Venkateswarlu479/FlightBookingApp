@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FlightSearchService.Migrations
 {
-    public partial class SearchDetail : Migration
+    public partial class SearchData : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,15 +11,22 @@ namespace FlightSearchService.Migrations
                 name: "FlightDetails",
                 columns: table => new
                 {
-                    FlightId = table.Column<long>(type: "bigint", nullable: false)
+                    SearchSeqNo = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    FlightId = table.Column<long>(type: "bigint", nullable: false),
                     FlightNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FlightName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AirlineName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FromPlace = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ToPlace = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TripType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    JourneyDate = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TicketPrice = table.Column<double>(type: "float", nullable: false),
+                    DepartureTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ReachTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ScheduledDays = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InstrumentUsed = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NoOfBizClassSeats = table.Column<int>(type: "int", nullable: false),
+                    NoOfNonBizClassSeats = table.Column<int>(type: "int", nullable: false),
+                    TicketCost = table.Column<double>(type: "float", nullable: false),
+                    NoOfRows = table.Column<int>(type: "int", nullable: false),
+                    OptedForMeal = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FlightStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -28,7 +35,7 @@ namespace FlightSearchService.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FlightDetails", x => x.FlightId);
+                    table.PrimaryKey("PK_FlightDetails", x => x.SearchSeqNo);
                 });
         }
 

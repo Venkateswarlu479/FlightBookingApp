@@ -100,7 +100,7 @@ namespace FlightBookingService.Database
                              CreatedDateTime = b.CreatedDateTime
                          };
             //var result = await _dbContext.BookingDetails.Where(x => x.PNR == pnrNumber).FirstOrDefaultAsync();
-            return result.FirstOrDefault();
+            return await result.FirstOrDefaultAsync();
         }
     }
 }

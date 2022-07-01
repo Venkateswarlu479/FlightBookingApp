@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace FlightSearchService.Database
+namespace Shared.Models.Models
 {
     public class FlightDetails
     {
-        [Key]
-        public int SearchSeqNo { get; set; }
         public long FlightId { get; set; }
         public string FlightNumber { get; set; }
         public string AirlineName { get; set; }
@@ -31,4 +29,3 @@ namespace FlightSearchService.Database
         public DateTime LastChangedDateTime { get; set; }
     }
 }
-    

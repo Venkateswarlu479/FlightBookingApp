@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlightSearchService.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220627131303_SearchDetail")]
-    partial class SearchDetail
+    [Migration("20220701131000_SearchData")]
+    partial class SearchData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,10 +23,13 @@ namespace FlightSearchService.Migrations
 
             modelBuilder.Entity("FlightSearchService.Database.FlightDetails", b =>
                 {
-                    b.Property<long>("FlightId")
+                    b.Property<int>("SearchSeqNo")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AirlineName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -34,8 +37,11 @@ namespace FlightSearchService.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("FlightName")
+                    b.Property<string>("DepartureTime")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("FlightId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("FlightNumber")
                         .HasColumnType("nvarchar(max)");
@@ -46,7 +52,7 @@ namespace FlightSearchService.Migrations
                     b.Property<string>("FromPlace")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("JourneyDate")
+                    b.Property<string>("InstrumentUsed")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastChangedBy")
@@ -55,16 +61,31 @@ namespace FlightSearchService.Migrations
                     b.Property<DateTime>("LastChangedDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("TicketPrice")
+                    b.Property<int>("NoOfBizClassSeats")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NoOfNonBizClassSeats")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NoOfRows")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OptedForMeal")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReachTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ScheduledDays")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("TicketCost")
                         .HasColumnType("float");
 
                     b.Property<string>("ToPlace")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TripType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("FlightId");
+                    b.HasKey("SearchSeqNo");
 
                     b.ToTable("FlightDetails");
                 });

@@ -28,6 +28,8 @@ namespace FlightBookingService.Controllers
         [HttpPost("BookTicket")]
         public async Task<ActionResult<string>> BookFlightTicketAsync([FromBody] BookingDetailsModel bookingDetails)
         {
+            if (bookingDetails.FlightId <= 0 || bookingDetails.NoOfSeats <= 0)
+                return BadRequest($"Invalid Inputs {bookingDetails.NoOfSeats}/{bookingDetails.FlightId}");
             if (bookingDetails == null)
             {
                 return BadRequest("Invalid input data");

@@ -48,7 +48,9 @@ namespace ManageAirlinesService.Database
         ///<inheritdoc/>
         public async Task<string> UpdateAirlineStatus(string airlineName, string userName)
         {
-            var airlineDetails = await _dbContext.AirlineDetails.Where(x => x.AirlineName == airlineName).FirstAsync();
+            var airlineDetails = await _dbContext.AirlineDetails.Where(x => x.AirlineName == airlineName).FirstOrDefaultAsync();
+            if (airlineDetails == null)
+                return "No flights found to Block";
             airlineDetails.AirlineStatus = "Inactive";
             airlineDetails.LastChangedBy = userName;
             airlineDetails.LastChangedDateTime = DateTime.Now;

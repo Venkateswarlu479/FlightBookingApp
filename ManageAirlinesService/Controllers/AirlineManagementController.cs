@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ManageAirlinesService.Database;
 using ManageAirlinesService.Models;
+using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,15 +14,18 @@ namespace ManageAirlinesService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class AirlineManagementController : ControllerBase
     {
         private IDataRepository _dataRepository;
         private readonly IMapper _mapper;
-        public AirlineManagementController(IDataRepository dataRepository, IMapper mapper)
+        private readonly IBus _bus;
+
+        public AirlineManagementController(IDataRepository dataRepository, IMapper mapper, IBus bus)
         {
             _dataRepository = dataRepository;
             _mapper = mapper;
+            _bus = bus;
         }
 
         [HttpPost("RegisterAirline")]
@@ -70,12 +74,21 @@ namespace ManageAirlinesService.Controllers
         {
             if (flightDetailsModel == null)
                 return BadRequest("Invalid input");
+
             var flightDetails = _mapper.Map<FlightDetailsModel, FlightDetails>(flightDetailsModel);
             var result = await _dataRepository.AddOrScheduleFlight(flightDetails).ConfigureAwait(false);
-            if (result == null)
-                return "Error Occured while adding/scheduling Flight";
 
-            return Ok(result);
+            var publishData = _mapper.Map<FlightDetails, Shared.Models.Models.FlightDetails>(flightDetails);
+            if (result != null && publishData != null)
+            {
+                publishData.LastChangedDateTime = DateTime.Now;
+                Uri uri = new Uri("rabbitmq://localhost/flightQueue");
+                var endPoint = await _bus.GetSendEndpoint(uri);
+                await endPoint.Send(publishData);
+                return Ok(result);
+            }
+
+            return "Error Occured while adding/scheduling Flight";
         }
 
         [HttpGet("FlightDetails/{airlineName}/{flightNumber}/{instrumentUsed}")]

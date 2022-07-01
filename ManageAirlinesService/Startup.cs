@@ -2,6 +2,7 @@ using AutoMapper;
 using ManageAirlinesService.AutoMapper;
 using ManageAirlinesService.Database;
 using ManageAirlinesService.ServiceDiscovery;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -66,6 +67,21 @@ namespace ManageAirlinesService
             });
 
             services.AddConsulConfig();
+
+            //Registering MassTransit for communicate data to other service
+            services.AddMassTransit(x =>
+            {
+                x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(config =>
+                {
+                    config.UseHealthCheck(provider);
+                    config.Host(new Uri("rabbitmq://localhost"), h =>
+                    {
+                        h.Username("guest");
+                        h.Password("guest");
+                    });
+                }));
+            });
+            services.AddMassTransitHostedService();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

@@ -1,4 +1,9 @@
+using AutoMapper;
+using FlightSearchService.AutoMapper;
+using FlightSearchService.Consumer;
 using FlightSearchService.Database;
+using GreenPipes;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,6 +40,10 @@ namespace SearchFlightService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Auto Mapper Configurations
+            var mapper = new MapperConfiguration(mc => mc.AddProfile(new MappingProfile())).CreateMapper();
+            services.AddSingleton(mapper);
+
             services.AddScoped<IDataRepository, DataRepository>();
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -62,6 +71,28 @@ namespace SearchFlightService
             });
 
             services.AddConsulConfig();
+
+            //Registering MassTransit
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<FlightDetailsConsumer>();
+                x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
+                {
+                    cfg.UseHealthCheck(provider);
+                    cfg.Host(new Uri("rabbitmq://localhost"), h =>
+                    {
+                        h.Username("guest");
+                        h.Password("guest");
+                    });
+                    cfg.ReceiveEndpoint("flightQueue", ep =>
+                    {
+                        ep.PrefetchCount = 16;
+                        ep.UseMessageRetry(r => r.Interval(2, 100));
+                        ep.ConfigureConsumer<FlightDetailsConsumer>(provider);
+                    });
+                }));
+            });
+            services.AddMassTransitHostedService();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

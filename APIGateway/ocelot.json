@@ -1,5 +1,73 @@
 {
   "Routes": [
+    //Manage Airlines Service routes
+    {
+      "DownstreamPathTemplate": "/api/AirlineManagement/RegisterAirline",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7419
+        }
+      ],
+      "Key": "airlineRegKey",
+      "UpstreamPathTemplate": "/RegisterAirline/{airlineRegistrationModel}",
+      "UpstreamHttpMethods": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/AirlineManagement/GetAirlines",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7419
+        }
+      ],
+      "Key": "airlineGetKey",
+      "UpstreamPathTemplate": "/GetAirlines",
+      "UpstreamHttpMethods": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/AirlineManagement/BlockAirline?airlineName&userName",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7419
+        }
+      ],
+      "Key": "airlineBlockKey",
+      "UpstreamPathTemplate": "/BlockAirline?airlineName={name}&userName={user}",
+      "UpstreamHttpMethods": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/AirlineManagement/AddOrScheduleFlight",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7419
+        }
+      ],
+      "Key": "flightAddKey",
+      "UpstreamPathTemplate": "/AddFlight/{flightDetails}",
+      "UpstreamHttpMethods": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/AirlineManagement/FlightDetails/{airlineName}/{flightNumber}/{instrumentUsed}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7419
+        }
+      ],
+      "Key": "flightgetKey",
+      "UpstreamPathTemplate": "/FlightDetails/{airlineName}/{flightNumber}/{instrumentUsed}",
+      "UpstreamHttpMethods": [ "GET" ]
+    },
+
+    //Flight Search Service routes
     {
       "DownstreamPathTemplate": "/api/FlightSearch",
       "DownstreamScheme": "http",
@@ -13,8 +81,10 @@
       "UpstreamPathTemplate": "/search/{flightDetailsModel}",
       "UpstreamHttpMethods": [ "POST" ]
     },
+
+    //Flight Booking Service Routes
     {
-      "DownstreamPathTemplate": "/api/FlightBooking",
+      "DownstreamPathTemplate": "/api/FlightBooking/BookTicket",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -22,12 +92,12 @@
           "Port": 22842
         }
       ],
-      "Key": "ticketBookKey",
+      "Key": "ticketKey",
       "UpstreamPathTemplate": "/BookTicket/{bookingDetails}",
       "UpstreamHttpMethods": [ "POST" ]
     },
     {
-      "DownstreamPathTemplate": "/api/FlightBooking",
+      "DownstreamPathTemplate": "/api/FlightBooking/CancelTicket?pnrNumber",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -36,11 +106,11 @@
         }
       ],
       "Key": "ticketCancelKey",
-      "UpstreamPathTemplate": "/CancelTicket/{pnrNumber}",
+      "UpstreamPathTemplate": "/CancelTicket?pnrNumber={PNR}",
       "UpstreamHttpMethods": [ "POST" ]
     },
     {
-      "DownstreamPathTemplate": "/api/FlightBooking",
+      "DownstreamPathTemplate": "/api/FlightBooking/BookingHistory/{emailId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -48,12 +118,12 @@
           "Port": 22842
         }
       ],
-      "Key": "bookingHistoryKey",
+      "Key": "historyKey",
       "UpstreamPathTemplate": "/BookingHistory/{emailId}",
       "UpstreamHttpMethods": [ "GET" ]
     },
     {
-      "DownstreamPathTemplate": "/api/FlightBooking",
+      "DownstreamPathTemplate": "/api/FlightBooking/PassengersData/{bookingId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -66,7 +136,7 @@
       "UpstreamHttpMethods": [ "GET" ]
     },
     {
-      "DownstreamPathTemplate": "/api/FlightBooking",
+      "DownstreamPathTemplate": "/api/FlightBooking/TicketDetails/{pnrNumber}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -74,7 +144,7 @@
           "Port": 22842
         }
       ],
-      "Key": "ticketKey",
+      "Key": "ticketgetKey",
       "UpstreamPathTemplate": "/TicketDetails/{pnrNumber}",
       "UpstreamHttpMethods": [ "GET" ]
     }
