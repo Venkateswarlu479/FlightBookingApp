@@ -16,7 +16,7 @@ namespace AuthenticationService.Database
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
-        Task<User> GetUserDetails(string userName);
+        Task<UserModel> GetUserDetails(string userName);
 
         /// <summary>
         /// To save user data

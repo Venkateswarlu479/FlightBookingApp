@@ -16,7 +16,7 @@ namespace ManageAirlinesService.Database
         public string ToPlace { get; set; }
         public string DepartureTime { get; set; }
         public string ReachTime { get; set; }
-        public string ScheduledDays { get; set; }
+        public string ScheduledDate { get; set; }
         public string InstrumentUsed { get; set; }
         public int NoOfBizClassSeats { get; set; }
         public int NoOfNonBizClassSeats { get; set; }

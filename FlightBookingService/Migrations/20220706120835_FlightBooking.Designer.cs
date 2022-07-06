@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlightBookingService.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220628122829_BookingDetails")]
-    partial class BookingDetails
+    [Migration("20220706120835_FlightBooking")]
+    partial class FlightBooking
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,6 +27,9 @@ namespace FlightBookingService.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AirlineName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -67,6 +70,93 @@ namespace FlightBookingService.Migrations
                     b.HasKey("BookingId");
 
                     b.ToTable("BookingDetails");
+                });
+
+            modelBuilder.Entity("FlightBookingService.Database.DiscountDetails", b =>
+                {
+                    b.Property<int>("DiscountId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("DiscountAmount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("DiscountCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DiscountId");
+
+                    b.ToTable("DiscountDetails");
+                });
+
+            modelBuilder.Entity("FlightBookingService.Database.FlightDetails", b =>
+                {
+                    b.Property<int>("SearchSeqNo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AirlineName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DepartureTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("FlightId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("FlightNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FlightStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FromPlace")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("InstrumentUsed")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastChangedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastChangedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("NoOfBizClassSeats")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NoOfNonBizClassSeats")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NoOfRows")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OptedForMeal")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReachTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ScheduledDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("TicketCost")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ToPlace")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SearchSeqNo");
+
+                    b.ToTable("FlightDetails");
                 });
 
             modelBuilder.Entity("FlightBookingService.Database.PassengerList", b =>

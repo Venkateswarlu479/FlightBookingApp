@@ -67,22 +67,20 @@
       "UpstreamHttpMethods": [ "GET" ]
     },
 
-    //Flight Search Service routes
+    //Flight Booking Service routes
     {
-      "DownstreamPathTemplate": "/api/FlightSearch",
+      "DownstreamPathTemplate": "/api/FlightBooking/SearchFlight",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5674
+          "Port": 22842
         }
       ],
       "Key": "searchKey",
-      "UpstreamPathTemplate": "/search/{flightDetailsModel}",
+      "UpstreamPathTemplate": "/SearchFlight/{flightDetailsModel}",
       "UpstreamHttpMethods": [ "POST" ]
     },
-
-    //Flight Booking Service Routes
     {
       "DownstreamPathTemplate": "/api/FlightBooking/BookTicket",
       "DownstreamScheme": "http",
@@ -147,6 +145,32 @@
       "Key": "ticketgetKey",
       "UpstreamPathTemplate": "/TicketDetails/{pnrNumber}",
       "UpstreamHttpMethods": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/FlightBooking/GetDiscount/discountCode",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 22842
+        }
+      ],
+      "Key": "discountKey",
+      "UpstreamPathTemplate": "/GetDiscount/discountCode",
+      "UpstreamHttpMethods": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "//api/FlightBooking/AddDiscountCode?discountCode&amount",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 22842
+        }
+      ],
+      "Key": "addDiscountKey",
+      "UpstreamPathTemplate": "/AddDiscountCode?discountCode={code}&amount={amount}",
+      "UpstreamHttpMethods": [ "POST" ]
     }
   ],
 

@@ -1,7 +1,10 @@
 using AutoMapper;
 using FlightBookingService.AutoMapper;
+using FlightBookingService.Consumer;
 using FlightBookingService.Database;
 using FlightBookingService.ServiceDiscovery;
+using GreenPipes;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -65,6 +68,28 @@ namespace FlightBookingService
             });
 
             services.AddConsulConfig();
+
+            //Registering MassTransit
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<FlightDetailsConsumer>();
+                x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
+                {
+                    cfg.UseHealthCheck(provider);
+                    cfg.Host(new Uri("rabbitmq://localhost"), h =>
+                    {
+                        h.Username("guest");
+                        h.Password("guest");
+                    });
+                    cfg.ReceiveEndpoint("flightQueue", ep =>
+                    {
+                        ep.PrefetchCount = 16;
+                        ep.UseMessageRetry(r => r.Interval(2, 100));
+                        ep.ConfigureConsumer<FlightDetailsConsumer>(provider);
+                    });
+                }));
+            });
+            services.AddMassTransitHostedService();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

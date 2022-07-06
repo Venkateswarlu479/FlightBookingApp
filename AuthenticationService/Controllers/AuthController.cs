@@ -70,8 +70,8 @@ namespace AuthenticationService.Controllers
             if (userDetails == null)
                 return BadRequest("No Users Found");
 
-            var result = _mapper.Map<User, UserModel>(userDetails);
-            return result;
+            //var result = _mapper.Map<User, UserModel>(userDetails);
+            return userDetails;
         }
 
         /// <summary>
@@ -121,9 +121,10 @@ namespace AuthenticationService.Controllers
             var newRefreshToken = GenerateRefreshToken();
             SetRefreshToken(newRefreshToken, user);
 
-            user.LastChangedDateTime = DateTime.Now;
-            user.LastChangedBy = userModel.UserName;
-            var result = await _repository.SaveUserDetails(user).ConfigureAwait(false);
+            var userInfo = _mapper.Map<UserModel, User>(user);
+            userInfo.LastChangedDateTime = DateTime.Now;
+            userInfo.LastChangedBy = userModel.UserName;
+            var result = await _repository.SaveUserDetails(userInfo).ConfigureAwait(false);
             if (result == null)
                 return "Result returned null while updating data in DB";
 
@@ -158,7 +159,7 @@ namespace AuthenticationService.Controllers
         #endregion Public Methods
 
         #region Private Methods
-        private void SetRefreshToken(RefreshToken newRefreshToken, User user)
+        private void SetRefreshToken(RefreshToken newRefreshToken, UserModel user)
         {
             var cookiesOptions = new CookieOptions()
             {
@@ -187,12 +188,12 @@ namespace AuthenticationService.Controllers
             return refreshToken;
         }
 
-        private string CreateToken(User user)
+        private string CreateToken(UserModel user)
         {
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Role, "Admin")
+                new Claim(ClaimTypes.Role, user.Role)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));

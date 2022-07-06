@@ -30,7 +30,7 @@ namespace ManageAirlinesService.Database
         /// <param name="airlineName"></param>
         /// <param name="userName"></param>
         /// <returns></returns>
-        Task<string> UpdateAirlineStatus(string airlineName, string userName);
+        Task<IEnumerable<FlightDetails>> UpdateAirlineStatus(string airlineName, string userName);
 
         /// <summary>
         /// add or schedule fight

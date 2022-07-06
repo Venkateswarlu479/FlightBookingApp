@@ -107,7 +107,7 @@ namespace ManageAirlinesService.Migrations
                     b.Property<string>("ReachTime")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ScheduledDays")
+                    b.Property<string>("ScheduledDate")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("TicketCost")

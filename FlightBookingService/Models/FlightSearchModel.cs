@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FlightSearchService.Models
+namespace FlightBookingService.Models
 {
     /// <summary>
     /// Flight Search Model
@@ -14,7 +14,7 @@ namespace FlightSearchService.Models
 
         public string ToPlace { get; set; }
 
-        public string TripType { get; set; }
+        //public string TripType { get; set; }
 
         public string JourneyDate { get; set; }
     }

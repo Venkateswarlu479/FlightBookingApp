@@ -46,11 +46,11 @@ namespace ManageAirlinesService.Database
         }
 
         ///<inheritdoc/>
-        public async Task<string> UpdateAirlineStatus(string airlineName, string userName)
+        public async Task<IEnumerable<FlightDetails>> UpdateAirlineStatus(string airlineName, string userName)
         {
             var airlineDetails = await _dbContext.AirlineDetails.Where(x => x.AirlineName == airlineName).FirstOrDefaultAsync();
             if (airlineDetails == null)
-                return "No flights found to Block";
+                return null;
             airlineDetails.AirlineStatus = "Inactive";
             airlineDetails.LastChangedBy = userName;
             airlineDetails.LastChangedDateTime = DateTime.Now;
@@ -64,9 +64,9 @@ namespace ManageAirlinesService.Database
 
             var noOfRowsChanged = await _dbContext.SaveChangesAsync().ConfigureAwait(false);
             if (noOfRowsChanged <= 0)
-                return "Error occured while updating data in DB";
+                return null;
 
-            return "Airline Blocked successfully";
+            return flightDetails;
         }
 
         /// <summary>
@@ -78,11 +78,13 @@ namespace ManageAirlinesService.Database
         private async Task<IEnumerable<FlightDetails>> UpdateFlightStatusOfBlockedAirline(string airlineName, string userName)
         {
             var flights = await _dbContext.FlightDetails.Where(x => x.AirlineName == airlineName).ToListAsync();
-            foreach (var flight in flights)
-            {
-                flight.FlightStatus = "Inactive";
-                flight.LastChangedBy = userName;
-                flight.LastChangedDateTime = DateTime.Now;
+            if(flights.Any() && flights != null){
+                foreach (var flight in flights)
+                {
+                    flight.FlightStatus = "Inactive";
+                    flight.LastChangedBy = userName;
+                    flight.LastChangedDateTime = DateTime.Now;
+                }
             }
 
             return flights;

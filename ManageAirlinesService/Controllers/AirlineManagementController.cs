@@ -8,13 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ManageAirlinesService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AirlineManagementController : ControllerBase
     {
         private IDataRepository _dataRepository;
@@ -65,8 +66,22 @@ namespace ManageAirlinesService.Controllers
             if (string.IsNullOrWhiteSpace(userName))
                 return BadRequest("Invalid userName");
 
-            var result = await _dataRepository.UpdateAirlineStatus(airlineName, userName).ConfigureAwait(false);
-            return Ok(result);
+            var flightDetails = await _dataRepository.UpdateAirlineStatus(airlineName, userName).ConfigureAwait(false);
+            if(flightDetails != null && flightDetails.Any())
+            {
+                foreach (var flightInfo in flightDetails)
+                {
+                    var publishData = _mapper.Map<FlightDetails, Shared.Models.Models.FlightDetails>(flightInfo);
+                    publishData.LastChangedDateTime = DateTime.Now;
+                    Uri uri = new Uri("rabbitmq://localhost/flightQueue");
+                    var endPoint = await _bus.GetSendEndpoint(uri);
+                    await endPoint.Send(publishData);
+                }
+
+                return Ok("Success");
+            }
+
+            return "Error occured while blocking Airline";
         }
 
         [HttpPost("AddOrScheduleFlight")]
@@ -76,6 +91,10 @@ namespace ManageAirlinesService.Controllers
                 return BadRequest("Invalid input");
 
             var flightDetails = _mapper.Map<FlightDetailsModel, FlightDetails>(flightDetailsModel);
+            flightDetails.CreatedBy = flightDetailsModel.CreatedBy;
+            flightDetails.CreatedDateTime = DateTime.Now;
+            flightDetails.LastChangedBy = flightDetailsModel.CreatedBy;
+            flightDetails.LastChangedDateTime = DateTime.Now;
             var result = await _dataRepository.AddOrScheduleFlight(flightDetails).ConfigureAwait(false);
 
             var publishData = _mapper.Map<FlightDetails, Shared.Models.Models.FlightDetails>(flightDetails);

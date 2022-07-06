@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlightBookingService.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,20 @@ namespace FlightBookingService.Database
 {
     public interface IDataRepository
     {
+        /// <summary>
+        /// Gets the available flight details
+        /// </summary>
+        /// <param name="flightSearchModel"></param>
+        /// <returns></returns>
+        Task<IEnumerable<FlightDetails>> GetFlightDetails(FlightSearchModel flightSearchModel);
+
+        /// <summary>
+        /// To save flight details in DB for search operation
+        /// </summary>
+        /// <param name="flightDetails"></param>
+        /// <returns></returns>
+        Task<string> SaveFlightDetailsAsync(FlightDetails flightDetails);
+
         /// <summary>
         /// To save booking details in database
         /// </summary>
@@ -49,5 +64,19 @@ namespace FlightBookingService.Database
         /// <param name="pnrNumber"></param>
         /// <returns></returns>
         Task<BookingDetails> GetTicketDetailsAsync(string pnrNumber);
+
+        /// <summary>
+        /// to apply discount on ticket price
+        /// </summary>
+        /// <param name="discountCode"></param>
+        /// <returns></returns>
+        Task<DiscountDetails> GetDiscountDetailsAsync(string discountCode);
+
+        /// <summary>
+        /// Add Discount details
+        /// </summary>
+        /// <param name="discount"></param>
+        /// <returns></returns>
+        Task<string> AddDiscountCodeAsync(DiscountDetails discount);
     }
 }

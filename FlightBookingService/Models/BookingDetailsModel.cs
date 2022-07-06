@@ -16,5 +16,6 @@ namespace FlightBookingService.Models
         public double TotalPrice { get; set; }
         public string[] SeatNumbers { get; set; }
         public List<PassengerListModel> PassengerList { get; set; }
+        public string AirlineName { get; set; }
     }
 }

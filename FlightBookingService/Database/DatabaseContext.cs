@@ -13,8 +13,10 @@ namespace FlightBookingService.Database
 
         }
 
+        public DbSet<FlightDetails> FlightDetails { get; set; }
         public DbSet<BookingDetails> BookingDetails { get; set; }
         public DbSet<PassengerList> PassengerList { get; set; }
+        public DbSet<DiscountDetails> DiscountDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

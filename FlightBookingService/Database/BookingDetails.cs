@@ -19,6 +19,7 @@ namespace FlightBookingService.Database
         public string TicketStatus { get; set; }
         public double TotalPrice { get; set; }
         public string PNR { get; set; }
+        public string AirlineName { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedDateTime { get; set; }
         public string LastChangedBy { get; set; }

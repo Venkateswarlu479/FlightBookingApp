@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FlightSearchService.Database;
+using FlightBookingService.Database;
 using MassTransit;
 using Shared.Models.Models;
 using System;
@@ -8,15 +8,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using FlightDetails = Shared.Models.Models.FlightDetails;
 
-namespace FlightSearchService.Consumer
+namespace FlightBookingService.Consumer
 {
     public class FlightDetailsConsumer : IConsumer<FlightDetails>
     {
-        private readonly IDataRepository _searchRepos;
+        private readonly IDataRepository _bookingRepos;
         private readonly IMapper _mapper;
-        public FlightDetailsConsumer(IDataRepository searchRepos, IMapper mapper)
+        public FlightDetailsConsumer(IDataRepository bookingRepos, IMapper mapper)
         {
-            _searchRepos = searchRepos;
+            _bookingRepos = bookingRepos;
             _mapper = mapper;
         }
 
@@ -25,9 +25,8 @@ namespace FlightSearchService.Consumer
             await Task.Run(() => { var obj = context.Message; });
             //Store to Database
             var flightDetails = context.Message;
-            var consumedData = _mapper.Map<FlightDetails, FlightSearchService.Database.FlightDetails>(flightDetails);
-            var result = await _searchRepos.SaveFlightDetailsAsync(consumedData).ConfigureAwait(false);
-            //Notify the user via Email / SMS
+            var consumedData = _mapper.Map<FlightDetails, Database.FlightDetails>(flightDetails);
+            var result = await _bookingRepos.SaveFlightDetailsAsync(consumedData).ConfigureAwait(false);
         }
     }
 }

@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlightSearchService", "SearchFlightService\FlightSearchService.csproj", "{C430A25C-FB1F-4CDE-820F-49488F87FB7C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlightBookingService", "FlightBookingService\FlightBookingService.csproj", "{2FCEBAED-071B-4295-AA21-334CB9EC6663}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManageAirlinesService", "ManageAirlinesService\ManageAirlinesService.csproj", "{4151B0B9-36F8-421D-BB20-92423E1A8AAD}"
@@ -13,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIGateway", "APIGateway\AP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthenticationService", "AuthenticationService\AuthenticationService.csproj", "{31C66774-AD1C-4BA8-8FD8-4B295E98666B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Models", "Shared.Models\Shared.Models.csproj", "{F9DC4F64-9062-4903-9201-C91E1AE97EF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Models", "Shared.Models\Shared.Models.csproj", "{F9DC4F64-9062-4903-9201-C91E1AE97EF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C430A25C-FB1F-4CDE-820F-49488F87FB7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C430A25C-FB1F-4CDE-820F-49488F87FB7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C430A25C-FB1F-4CDE-820F-49488F87FB7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C430A25C-FB1F-4CDE-820F-49488F87FB7C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2FCEBAED-071B-4295-AA21-334CB9EC6663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2FCEBAED-071B-4295-AA21-334CB9EC6663}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FCEBAED-071B-4295-AA21-334CB9EC6663}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -14,7 +14,7 @@ namespace FlightBookingService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "User")]
     public class FlightBookingController : ControllerBase
     {
         private readonly IDataRepository _repository;
@@ -23,6 +23,23 @@ namespace FlightBookingService.Controllers
         {
             _repository = repository;
             _mapper = mapper;
+        }
+
+        /// <summary>
+        /// Search flight based on input details
+        /// </summary>
+        /// <param name="flightSearchModel"></param>
+        /// <returns></returns>
+        [HttpPost("SearchFlight")]
+        public async Task<ActionResult<IEnumerable<FlightDetails>>> SearchFlightAsync([FromBody] FlightSearchModel flightSearchModel)
+        {
+            if (flightSearchModel == null)
+                return BadRequest("Invalid Input");
+            var result = await _repository.GetFlightDetails(flightSearchModel).ConfigureAwait(false);
+            if (result == null || result.Count() == 0)
+                return new List<FlightDetails>();
+
+            return Ok(result);
         }
 
         [HttpPost("BookTicket")]
@@ -47,6 +64,7 @@ namespace FlightBookingService.Controllers
                 TotalPrice = bookingDetails.TotalPrice,
                 TicketStatus = "Booked",
                 PNR = pnrNumber,
+                AirlineName = bookingDetails.AirlineName,
                 CreatedBy = bookingDetails.Name,
                 CreatedDateTime = DateTime.Now,
                 LastChangedBy = bookingDetails.Name,
@@ -79,7 +97,7 @@ namespace FlightBookingService.Controllers
             if (passengerResult == null)
                 return "Invalid result returned due to getting error while saving Passenger details in DB";
 
-            return Ok(pnrNumber);
+            return Ok("Your PNR is:" +pnrNumber);
         }
 
         [HttpPost("CancelTicket")]
@@ -103,8 +121,8 @@ namespace FlightBookingService.Controllers
             var bookingHistory = await _repository.GetBookingHistoryAsync(emailId).ConfigureAwait(false);
             if (!bookingHistory.Any())
                 return new List<BookingDetails>();
-
-            return Ok(bookingHistory);
+            var result = bookingHistory.GroupBy(x => x.BookingId).Select(x => x.First());
+            return Ok(result);
         }
 
         [HttpGet("PassengersData/{bookingId}")]
@@ -126,9 +144,32 @@ namespace FlightBookingService.Controllers
                 return BadRequest("Invalid input");
             var ticketDetails = await _repository.GetTicketDetailsAsync(pnrNumber).ConfigureAwait(false);
             if (ticketDetails == null)
-                return new BookingDetails();
+                return Ok("No booking details found for given PNR");
 
             return Ok(ticketDetails);
+        }
+
+        [HttpGet("GetDiscount/{discountCode}")]
+        public async Task<ActionResult<DiscountDetails>> GetDiscountDetailsAsync(string discountCode)
+        {
+            if (string.IsNullOrWhiteSpace(discountCode))
+                return BadRequest("Invalid input");
+            var result = await _repository.GetDiscountDetailsAsync(discountCode).ConfigureAwait(false);
+            if (result == null)
+                return Ok("Discount code is invalid or expired");
+            return Ok(result);
+        }
+
+        [HttpPost("AddDiscountCode")]
+        public async Task<ActionResult<string>> AddDiscountCodeAsync(string discountCode, double amount)
+        {
+            var discountData = new DiscountDetails()
+            {
+                DiscountCode = discountCode,
+                DiscountAmount = amount
+            };
+            var result = await _repository.AddDiscountCodeAsync(discountData).ConfigureAwait(false);
+            return Ok(result);
         }
 
         /// <summary>

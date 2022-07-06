@@ -19,5 +19,9 @@ namespace AuthenticationService.Models
         public string RefreshToken { get; set; } = string.Empty;
         public DateTime TokenExpires { get; set; }
         public DateTime TokenCreated { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime CreatedDateTime { get; set; }
+        public string LastChangedBy { get; set; }
+        public DateTime LastChangedDateTime { get; set; }
     }
 }

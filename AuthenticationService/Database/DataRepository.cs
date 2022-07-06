@@ -27,25 +27,29 @@ namespace AuthenticationService.Database
         }
 
         ///<inheritdoc/>
-        public async Task<User> GetUserDetails(string userName)
+        public async Task<UserModel> GetUserDetails(string userName)
         {
             var userDetails = await (from u in _databaseContext.Users.Where(x => x.UserName == userName)
-                                      join ur in _databaseContext.UserRoles on u.UserId equals ur.UserId
-                                      join r in _databaseContext.Roles on ur.RoleId equals r.RoleId
-                                      select u).FirstOrDefaultAsync();
-                              //select new UserModel
-                              //{
-                              //    UserId = u.UserId,
-                              //    UserName = u.UserName,
-                              //    PasswordHash = u.PasswordHash,
-                              //    PasswordSalt = u.PasswordSalt,
-                              //    Role = r.RoleName,
-                              //    TokenCreated = u.TokenCreated,
-                              //    TokenExpires = u.TokenExpires,
-                              //    RefreshToken = u.RefreshToken
-                              //};
-                              
-                 return userDetails;
+                                     join ur in _databaseContext.UserRoles on u.UserId equals ur.UserId
+                                     join r in _databaseContext.Roles on ur.RoleId equals r.RoleId
+                                     //select u).FirstOrDefaultAsync();
+                                     select new UserModel
+                                     {
+                                         UserId = u.UserId,
+                                         UserName = u.UserName,
+                                         PasswordHash = u.PasswordHash,
+                                         PasswordSalt = u.PasswordSalt,
+                                         Role = r.RoleName,
+                                         TokenCreated = u.TokenCreated,
+                                         TokenExpires = u.TokenExpires,
+                                         RefreshToken = u.RefreshToken,
+                                         CreatedBy = u.CreatedBy,
+                                         CreatedDateTime = u.CreatedDateTime,
+                                         LastChangedBy = u.LastChangedBy,
+                                         LastChangedDateTime = u.LastChangedDateTime
+                                     }).FirstOrDefaultAsync();
+
+            return userDetails;
         }
 
         ///<inheritdoc/>
