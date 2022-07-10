@@ -14,6 +14,7 @@ using AuthenticationService.Database;
 using AuthenticationService.Models;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
+using Microsoft.AspNetCore.Cors;
 
 namespace AuthenticationService.Controllers
 {
@@ -22,6 +23,7 @@ namespace AuthenticationService.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowOrigin")]
     public class AuthController : ControllerBase
     {
         #region Private Properties
@@ -93,7 +95,7 @@ namespace AuthenticationService.Controllers
                 LastChangedBy = userModel.UserName,
                 LastChangedDateTime = DateTime.Now
             };
-            var result = await _repository.SaveUserDetails(userData).ConfigureAwait(false);
+            var result = await _repository.SaveUserDetails(userData, "register").ConfigureAwait(false);
             return Ok(result);
         }
 
@@ -124,7 +126,7 @@ namespace AuthenticationService.Controllers
             var userInfo = _mapper.Map<UserModel, User>(user);
             userInfo.LastChangedDateTime = DateTime.Now;
             userInfo.LastChangedBy = userModel.UserName;
-            var result = await _repository.SaveUserDetails(userInfo).ConfigureAwait(false);
+            var result = await _repository.SaveUserDetails(userInfo, "login").ConfigureAwait(false);
             if (result == null)
                 return "Result returned null while updating data in DB";
 

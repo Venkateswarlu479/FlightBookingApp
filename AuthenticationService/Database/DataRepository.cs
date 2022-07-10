@@ -53,12 +53,30 @@ namespace AuthenticationService.Database
         }
 
         ///<inheritdoc/>
-        public async Task<string> SaveUserDetails(User user)
+        public async Task<string> SaveUserDetails(User user, string action)
         {
             _databaseContext.Entry(user).State = (user.UserId == 0) ? EntityState.Added : EntityState.Modified;
             var noOfRowsChanged = await _databaseContext.SaveChangesAsync();
             if (noOfRowsChanged <= 0)
-                return "Error occured while saving data in database";
+                return "Error occured while saving data in User table";
+
+            if (action == "register")
+            {
+                var userRole = new UserRole()
+                {
+                    UserId = user.UserId,
+                    RoleId = 2,
+                    CreatedBy = user.UserName,
+                    CreatedDateTime = DateTime.Now,
+                    LastChangedBy = user.UserName,
+                    LastChangedDateTime = DateTime.Now
+                };
+                await _databaseContext.UserRoles.AddAsync(userRole);
+                var noOfRecordsChanged = await _databaseContext.SaveChangesAsync();
+                if (noOfRecordsChanged <= 0)
+                    return "Error occured while saving data in UserRole table";
+            }
+
             return "Data saved successfully";
         }
     }

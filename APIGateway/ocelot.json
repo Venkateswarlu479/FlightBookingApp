@@ -1,5 +1,32 @@
 {
   "Routes": [
+    {
+      //Authentication Service
+      "DownstreamPathTemplate": "/api/Auth/Register",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 27301
+        }
+      ],
+      "Key": "regKey",
+      "UpstreamPathTemplate": "/Register/{registrationModel}",
+      "UpstreamHttpMethods": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Auth/Login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 27301
+        }
+      ],
+      "Key": "loginKey",
+      "UpstreamPathTemplate": "/Login/{userModel}",
+      "UpstreamHttpMethods": [ "POST" ]
+    },
     //Manage Airlines Service routes
     {
       "DownstreamPathTemplate": "/api/AirlineManagement/RegisterAirline",

@@ -22,7 +22,8 @@ namespace AuthenticationService.Database
         /// To save user data
         /// </summary>
         /// <param name="user"></param>
+        /// <param name="action"></param>
         /// <returns></returns>
-        Task<string> SaveUserDetails(User user);
+        Task<string> SaveUserDetails(User user, string action);
     }
 }

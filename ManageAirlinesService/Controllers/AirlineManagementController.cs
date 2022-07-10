@@ -3,6 +3,7 @@ using ManageAirlinesService.Database;
 using ManageAirlinesService.Models;
 using MassTransit;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,7 +16,8 @@ namespace ManageAirlinesService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    [EnableCors("AllowOrigin")]
+    //[Authorize(Roles = "Admin")]
     public class AirlineManagementController : ControllerBase
     {
         private IDataRepository _dataRepository;

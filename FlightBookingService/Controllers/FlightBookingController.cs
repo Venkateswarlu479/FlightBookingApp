@@ -2,6 +2,7 @@
 using FlightBookingService.Database;
 using FlightBookingService.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,6 +15,7 @@ namespace FlightBookingService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowOrigin")]
     //[Authorize(Roles = "User")]
     public class FlightBookingController : ControllerBase
     {
