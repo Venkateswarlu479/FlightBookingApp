@@ -20,7 +20,9 @@ namespace ManageAirlinesService.Database
         public string InstrumentUsed { get; set; }
         public int NoOfBizClassSeats { get; set; }
         public int NoOfNonBizClassSeats { get; set; }
-        public double TicketCost { get; set; }
+        public double BizClassTicketPrice { get; set; }
+        public double NonBizClassTicketPrice { get; set; }
+        //public double TicketCost { get; set; }
         public int NoOfRows { get; set; }
         public string OptedForMeal { get; set; }
         public string FlightStatus { get; set; }

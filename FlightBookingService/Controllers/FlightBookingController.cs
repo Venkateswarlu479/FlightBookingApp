@@ -16,7 +16,7 @@ namespace FlightBookingService.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [EnableCors("AllowOrigin")]
-    //[Authorize(Roles = "User")]
+    [Authorize(Roles = "User")]
     public class FlightBookingController : ControllerBase
     {
         private readonly IDataRepository _repository;

@@ -48,7 +48,7 @@ namespace ManageAirlinesService.Database
         ///<inheritdoc/>
         public async Task<IEnumerable<FlightDetails>> UpdateAirlineStatus(string airlineName, string userName)
         {
-            var airlineDetails = await _dbContext.AirlineDetails.Where(x => x.AirlineName == airlineName).FirstOrDefaultAsync();
+            var airlineDetails = await _dbContext.AirlineDetails.Where(x => x.AirlineName == airlineName && x.AirlineStatus == "Active").FirstOrDefaultAsync();
             if (airlineDetails == null)
                 return null;
             airlineDetails.AirlineStatus = "Inactive";
@@ -99,7 +99,7 @@ namespace ManageAirlinesService.Database
             {
                 return "Error occureed while adding inventory or schedule existing airline";
             }
-            return "Airline Added/Scheduled Successfully";
+            return "Flight Added/Scheduled Successfully";
         }
 
         ///<inheritdoc/>

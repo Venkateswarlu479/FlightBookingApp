@@ -1,205 +1,132 @@
 {
   "Routes": [
     {
-      //Authentication Service
+      "UseServiceDiscovery": true,
       "DownstreamPathTemplate": "/api/Auth/Register",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 27301
-        }
-      ],
-      "Key": "regKey",
-      "UpstreamPathTemplate": "/Register/{registrationModel}",
+      "ServiceName": "AuthenticationService",
+      "UpstreamPathTemplate": "/api/gateway/Register/{registrationModel}",
       "UpstreamHttpMethods": [ "POST" ]
     },
     {
+      "UseServiceDiscovery": true,
       "DownstreamPathTemplate": "/api/Auth/Login",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 27301
-        }
-      ],
-      "Key": "loginKey",
-      "UpstreamPathTemplate": "/Login/{userModel}",
+      "ServiceName": "AuthenticationService",
+      "UpstreamPathTemplate": "/api/gateway/Login/{userModel}",
       "UpstreamHttpMethods": [ "POST" ]
     },
-    //Manage Airlines Service routes
     {
+      "UseServiceDiscovery": true,
       "DownstreamPathTemplate": "/api/AirlineManagement/RegisterAirline",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7419
-        }
-      ],
-      "Key": "airlineRegKey",
-      "UpstreamPathTemplate": "/RegisterAirline/{airlineRegistrationModel}",
+      "ServiceName": "ManageAirlineService",
+      "UpstreamPathTemplate": "/api/gateway/RegisterAirline/{airlineRegistrationModel}",
       "UpstreamHttpMethods": [ "POST" ]
     },
     {
+      "UseServiceDiscovery": true,
       "DownstreamPathTemplate": "/api/AirlineManagement/GetAirlines",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7419
-        }
-      ],
-      "Key": "airlineGetKey",
-      "UpstreamPathTemplate": "/GetAirlines",
+      "ServiceName": "ManageAirlineService",
+      "UpstreamPathTemplate": "/api/gateway/GetAirlines",
       "UpstreamHttpMethods": [ "GET" ]
     },
     {
+      "UseServiceDiscovery": true,
       "DownstreamPathTemplate": "/api/AirlineManagement/BlockAirline?airlineName&userName",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7419
-        }
-      ],
-      "Key": "airlineBlockKey",
-      "UpstreamPathTemplate": "/BlockAirline?airlineName={name}&userName={user}",
+      "ServiceName": "ManageAirlineService",
+      "UpstreamPathTemplate": "/api/gateway/BlockAirline?airlineName={name}&userName={user}",
       "UpstreamHttpMethods": [ "POST" ]
     },
     {
+      "UseServiceDiscovery": true,
       "DownstreamPathTemplate": "/api/AirlineManagement/AddOrScheduleFlight",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7419
-        }
-      ],
-      "Key": "flightAddKey",
-      "UpstreamPathTemplate": "/AddFlight/{flightDetails}",
+      "ServiceName": "ManageAirlineService",
+      "UpstreamPathTemplate": "/api/gateway/AddFlight/{flightDetails}",
       "UpstreamHttpMethods": [ "POST" ]
     },
     {
+      "UseServiceDiscovery": true,
       "DownstreamPathTemplate": "/api/AirlineManagement/FlightDetails/{airlineName}/{flightNumber}/{instrumentUsed}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7419
-        }
-      ],
-      "Key": "flightgetKey",
-      "UpstreamPathTemplate": "/FlightDetails/{airlineName}/{flightNumber}/{instrumentUsed}",
+      "ServiceName": "ManageAirlineService",
+      "UpstreamPathTemplate": "/api/gateway/FlightDetails/{airlineName}/{flightNumber}/{instrumentUsed}",
       "UpstreamHttpMethods": [ "GET" ]
     },
-
-    //Flight Booking Service routes
     {
+      "UseServiceDiscovery": true,
       "DownstreamPathTemplate": "/api/FlightBooking/SearchFlight",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 22842
-        }
-      ],
-      "Key": "searchKey",
-      "UpstreamPathTemplate": "/SearchFlight/{flightDetailsModel}",
+      "ServiceName": "FlightBookingService",
+      "UpstreamPathTemplate": "/api/gateway/SearchFlight/{flightDetailsModel}",
       "UpstreamHttpMethods": [ "POST" ]
     },
     {
+      "UseServiceDiscovery": true,
       "DownstreamPathTemplate": "/api/FlightBooking/BookTicket",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 22842
-        }
-      ],
-      "Key": "ticketKey",
-      "UpstreamPathTemplate": "/BookTicket/{bookingDetails}",
+      "ServiceName": "FlightBookingService",
+      "UpstreamPathTemplate": "/api/gateway/BookTicket/{bookingDetails}",
       "UpstreamHttpMethods": [ "POST" ]
     },
     {
+      "UseServiceDiscovery": true,
       "DownstreamPathTemplate": "/api/FlightBooking/CancelTicket?pnrNumber",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 22842
-        }
-      ],
-      "Key": "ticketCancelKey",
-      "UpstreamPathTemplate": "/CancelTicket?pnrNumber={PNR}",
+      "ServiceName": "FlightBookingService",
+      "UpstreamPathTemplate": "/api/gateway/CancelTicket?pnrNumber={PNR}",
       "UpstreamHttpMethods": [ "POST" ]
     },
     {
+      "UseServiceDiscovery": true,
       "DownstreamPathTemplate": "/api/FlightBooking/BookingHistory/{emailId}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 22842
-        }
-      ],
-      "Key": "historyKey",
-      "UpstreamPathTemplate": "/BookingHistory/{emailId}",
+      "ServiceName": "FlightBookingService",
+      "UpstreamPathTemplate": "/api/gateway/BookingHistory/{emailId}",
       "UpstreamHttpMethods": [ "GET" ]
     },
     {
+      "UseServiceDiscovery": true,
       "DownstreamPathTemplate": "/api/FlightBooking/PassengersData/{bookingId}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 22842
-        }
-      ],
-      "Key": "passengerKey",
-      "UpstreamPathTemplate": "/PassengersData/{bookingId}",
+      "ServiceName": "FlightBookingService",
+      "UpstreamPathTemplate": "/api/gateway/PassengersData/{bookingId}",
       "UpstreamHttpMethods": [ "GET" ]
     },
     {
+      "UseServiceDiscovery": true,
       "DownstreamPathTemplate": "/api/FlightBooking/TicketDetails/{pnrNumber}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 22842
-        }
-      ],
-      "Key": "ticketgetKey",
-      "UpstreamPathTemplate": "/TicketDetails/{pnrNumber}",
+      "ServiceName": "FlightBookingService",
+      "UpstreamPathTemplate": "/api/gateway/TicketDetails/{pnrNumber}",
       "UpstreamHttpMethods": [ "GET" ]
     },
     {
+      "UseServiceDiscovery": true,
       "DownstreamPathTemplate": "/api/FlightBooking/GetDiscount/discountCode",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 22842
-        }
-      ],
-      "Key": "discountKey",
-      "UpstreamPathTemplate": "/GetDiscount/discountCode",
+      "ServiceName": "FlightBookingService",
+      "UpstreamPathTemplate": "/api/gateway/GetDiscount/discountCode",
       "UpstreamHttpMethods": [ "GET" ]
     },
     {
-      "DownstreamPathTemplate": "//api/FlightBooking/AddDiscountCode?discountCode&amount",
+      "UseServiceDiscovery": true,
+      "DownstreamPathTemplate": "/api/FlightBooking/AddDiscountCode?discountCode&amount",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 22842
-        }
-      ],
-      "Key": "addDiscountKey",
-      "UpstreamPathTemplate": "/AddDiscountCode?discountCode={code}&amount={amount}",
+      "ServiceName": "FlightBookingService",
+      "UpstreamPathTemplate": "/api/gateway/AddDiscountCode?discountCode={code}&amount={amount}",
       "UpstreamHttpMethods": [ "POST" ]
     }
   ],
 
-  "GlobalConfiguration": {}
+  "GlobalConfiguration": {
+    "ServiceDiscoveryProvider": {
+      "Host": "localhost",
+      "Port": 8500,
+      "Type": "Consul"
+    }
+  }
 }

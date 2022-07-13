@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ManageAirlinesService.Migrations
 {
-    public partial class AirlineDetails : Migration
+    public partial class NewMigration1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -43,6 +43,8 @@ namespace ManageAirlinesService.Migrations
                     InstrumentUsed = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NoOfBizClassSeats = table.Column<int>(type: "int", nullable: false),
                     NoOfNonBizClassSeats = table.Column<int>(type: "int", nullable: false),
+                    BizClassTicketPrice = table.Column<double>(type: "float", nullable: false),
+                    NonBizClassTicketPrice = table.Column<double>(type: "float", nullable: false),
                     TicketCost = table.Column<double>(type: "float", nullable: false),
                     NoOfRows = table.Column<int>(type: "int", nullable: false),
                     OptedForMeal = table.Column<string>(type: "nvarchar(max)", nullable: true),

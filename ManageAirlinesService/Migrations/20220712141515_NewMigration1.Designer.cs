@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ManageAirlinesService.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220706121125_AirlineDetails")]
-    partial class AirlineDetails
+    [Migration("20220712141515_NewMigration1")]
+    partial class NewMigration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -67,6 +67,9 @@ namespace ManageAirlinesService.Migrations
                     b.Property<string>("AirlineName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("BizClassTicketPrice")
+                        .HasColumnType("float");
+
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -102,6 +105,9 @@ namespace ManageAirlinesService.Migrations
 
                     b.Property<int>("NoOfRows")
                         .HasColumnType("int");
+
+                    b.Property<double>("NonBizClassTicketPrice")
+                        .HasColumnType("float");
 
                     b.Property<string>("OptedForMeal")
                         .HasColumnType("nvarchar(max)");

@@ -37,6 +37,7 @@ namespace AuthenticationService.Database
                                      {
                                          UserId = u.UserId,
                                          UserName = u.UserName,
+                                         EmailId = u.EmailId,
                                          PasswordHash = u.PasswordHash,
                                          PasswordSalt = u.PasswordSalt,
                                          Role = r.RoleName,

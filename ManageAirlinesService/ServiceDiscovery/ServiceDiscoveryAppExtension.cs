@@ -33,7 +33,7 @@ namespace ManageAirlinesService.ServiceDiscovery
             var registration = new AgentServiceRegistration()
             {
                 ID = "ManageAirline",
-                Name = "ManagerAirlineService",
+                Name = "ManageAirlineService",
                 Address = "localhost",
                 Port = 7419
             };

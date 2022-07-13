@@ -10,7 +10,8 @@ namespace AuthenticationService.Database
     {
         [Key]
         public int UserId { get; set; }
-        public string UserName { get; set; } = string.Empty;
+        public string UserName { get; set; }
+        public string EmailId { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public string CreatedBy { get; set; }
@@ -18,7 +19,7 @@ namespace AuthenticationService.Database
         public string LastChangedBy { get; set; }
         public DateTime LastChangedDateTime { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
-        public string RefreshToken { get; set; } = string.Empty;
+        public string RefreshToken { get; set; }
         public DateTime TokenExpires { get; set; }
         public DateTime TokenCreated { get; set; }
     }

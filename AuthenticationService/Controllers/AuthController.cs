@@ -15,6 +15,7 @@ using AuthenticationService.Models;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using Microsoft.AspNetCore.Cors;
+using AuthenticationService.Enums;
 
 namespace AuthenticationService.Controllers
 {
@@ -82,12 +83,13 @@ namespace AuthenticationService.Controllers
         /// <param name="userModel"></param>
         /// <returns></returns>
         [HttpPost("Register")]
-        public async Task<ActionResult<User>> RegisterUserAsync([FromBody] UserRequestModel userModel)
+        public async Task<ActionResult<string>> RegisterUserAsync([FromBody] UserRequestModel userModel)
         {
             CreatePasswordHash(userModel.Password, out byte[] passwordHash, out byte[] passwordSalt);
             var userData = new User()
             {
                 UserName = userModel.UserName,
+                EmailId = userModel.EmailId,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
                 CreatedBy = userModel.UserName,
@@ -96,7 +98,10 @@ namespace AuthenticationService.Controllers
                 LastChangedDateTime = DateTime.Now
             };
             var result = await _repository.SaveUserDetails(userData, "register").ConfigureAwait(false);
-            return Ok(result);
+            if(result != "Data saved successfully")
+                return StatusCode(StatusCodes.Status500InternalServerError);
+
+            return Ok("User registered successfully");
         }
 
         /// <summary>
@@ -105,7 +110,7 @@ namespace AuthenticationService.Controllers
         /// <param name="userModel"></param>
         /// <returns></returns>
         [HttpPost("Login")]
-        public async Task<ActionResult<string>> LoginAsync([FromBody] UserRequestModel userModel)
+        public async Task<ActionResult<LoginResponseModel>> LoginAsync([FromBody] UserRequestModel userModel)
         {
             var user = await _repository.GetUserDetails(userModel.UserName).ConfigureAwait(false);
             if(user == null)
@@ -128,9 +133,18 @@ namespace AuthenticationService.Controllers
             userInfo.LastChangedBy = userModel.UserName;
             var result = await _repository.SaveUserDetails(userInfo, "login").ConfigureAwait(false);
             if (result == null)
-                return "Result returned null while updating data in DB";
+                return StatusCode(StatusCodes.Status500InternalServerError);
 
-            return Ok(token);
+            var loginResponse = new LoginResponseModel()
+            {
+                UserId = user.UserId,
+                UserName = user.UserName,
+                EmailId = user.EmailId,
+                Role = user.Role,
+                Token = token
+            };
+
+            return Ok(loginResponse);
         }
 
         /// <summary>

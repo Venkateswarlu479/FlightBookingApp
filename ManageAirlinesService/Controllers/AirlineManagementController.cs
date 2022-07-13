@@ -17,7 +17,7 @@ namespace ManageAirlinesService.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [EnableCors("AllowOrigin")]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AirlineManagementController : ControllerBase
     {
         private IDataRepository _dataRepository;
