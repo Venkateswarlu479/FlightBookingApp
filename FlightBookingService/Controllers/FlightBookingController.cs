@@ -68,6 +68,7 @@ namespace FlightBookingService.Controllers
                 PNR = pnrNumber,
                 AirlineName = bookingDetails.AirlineName,
                 BookingClass = bookingDetails.BookingClass,
+                Journeydate = bookingDetails.Journeydate,
                 CreatedBy = bookingDetails.Name,
                 CreatedDateTime = DateTime.Now,
                 LastChangedBy = bookingDetails.Name,

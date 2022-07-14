@@ -129,6 +129,8 @@ namespace FlightBookingService.Database
                              CreatedBy = b.CreatedBy,
                              CreatedDateTime = b.CreatedDateTime,
                              AirlineName = b.AirlineName,
+                             BookingClass = b.BookingClass,
+                             Journeydate = b.Journeydate,
                              PassengerList = b.PassengerList
                          };
 
@@ -165,7 +167,7 @@ namespace FlightBookingService.Database
         ///<inheritdoc/>
         public async Task<BookingDetails> GetTicketDetailsAsync(string pnrNumber)
         {
-            var result = from b in _dbContext.BookingDetails.Where(x => x.PNR == pnrNumber)
+            var result = from b in _dbContext.BookingDetails.Where(x => x.PNR == pnrNumber && x.TicketStatus == "Booked")
                          join p in _dbContext.PassengerList on b.BookingId equals p.BookingId
                          select new BookingDetails
                          {
@@ -183,6 +185,8 @@ namespace FlightBookingService.Database
                              CreatedBy = b.CreatedBy,
                              CreatedDateTime = b.CreatedDateTime,
                              AirlineName = b.AirlineName,
+                             BookingClass = b.BookingClass,
+                             Journeydate = b.Journeydate,
                              PassengerList = b.PassengerList
                          };
 
