@@ -14,8 +14,9 @@ namespace FlightBookingService.Models
         public int NoOfSeats { get; set; }
         public string OptForMeal { get; set; }
         public double TotalPrice { get; set; }
+        public string AirlineName { get; set; }
+        public string BookingClass { get; set; }
         public string[] SeatNumbers { get; set; }
         public List<PassengerListModel> PassengerList { get; set; }
-        public string AirlineName { get; set; }
     }
 }

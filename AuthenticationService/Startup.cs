@@ -45,7 +45,7 @@ namespace AuthenticationService
             {
                 options.AddPolicy(name: "AllowOrigin", builder =>
                 {
-                    builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                 });
             });
 

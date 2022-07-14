@@ -66,7 +66,6 @@ namespace AuthenticationService.Controllers
         /// <param name="userName"></param>
         /// <returns></returns>
         [HttpGet("GetUserDetails")]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<UserModel>> GetUserDetailsAsync(string userName)
         {
             var userDetails = await _repository.GetUserDetails(userName).ConfigureAwait(false);

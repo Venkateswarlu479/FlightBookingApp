@@ -5,7 +5,7 @@
       "DownstreamPathTemplate": "/api/Auth/Register",
       "DownstreamScheme": "http",
       "ServiceName": "AuthenticationService",
-      "UpstreamPathTemplate": "/api/gateway/Register/{registrationModel}",
+      "UpstreamPathTemplate": "/api/gateway/Register",
       "UpstreamHttpMethods": [ "POST" ]
     },
     {
@@ -13,7 +13,7 @@
       "DownstreamPathTemplate": "/api/Auth/Login",
       "DownstreamScheme": "http",
       "ServiceName": "AuthenticationService",
-      "UpstreamPathTemplate": "/api/gateway/Login/{userModel}",
+      "UpstreamPathTemplate": "/api/gateway/Login",
       "UpstreamHttpMethods": [ "POST" ]
     },
     {
@@ -21,7 +21,7 @@
       "DownstreamPathTemplate": "/api/AirlineManagement/RegisterAirline",
       "DownstreamScheme": "http",
       "ServiceName": "ManageAirlineService",
-      "UpstreamPathTemplate": "/api/gateway/RegisterAirline/{airlineRegistrationModel}",
+      "UpstreamPathTemplate": "/api/gateway/RegisterAirline",
       "UpstreamHttpMethods": [ "POST" ]
     },
     {
@@ -45,7 +45,7 @@
       "DownstreamPathTemplate": "/api/AirlineManagement/AddOrScheduleFlight",
       "DownstreamScheme": "http",
       "ServiceName": "ManageAirlineService",
-      "UpstreamPathTemplate": "/api/gateway/AddFlight/{flightDetails}",
+      "UpstreamPathTemplate": "/api/gateway/AddFlight",
       "UpstreamHttpMethods": [ "POST" ]
     },
     {
@@ -61,7 +61,7 @@
       "DownstreamPathTemplate": "/api/FlightBooking/SearchFlight",
       "DownstreamScheme": "http",
       "ServiceName": "FlightBookingService",
-      "UpstreamPathTemplate": "/api/gateway/SearchFlight/{flightDetailsModel}",
+      "UpstreamPathTemplate": "/api/gateway/SearchFlight",
       "UpstreamHttpMethods": [ "POST" ]
     },
     {
@@ -69,7 +69,7 @@
       "DownstreamPathTemplate": "/api/FlightBooking/BookTicket",
       "DownstreamScheme": "http",
       "ServiceName": "FlightBookingService",
-      "UpstreamPathTemplate": "/api/gateway/BookTicket/{bookingDetails}",
+      "UpstreamPathTemplate": "/api/gateway/BookTicket",
       "UpstreamHttpMethods": [ "POST" ]
     },
     {
@@ -120,13 +120,5 @@
       "UpstreamPathTemplate": "/api/gateway/AddDiscountCode?discountCode={code}&amount={amount}",
       "UpstreamHttpMethods": [ "POST" ]
     }
-  ],
-
-  "GlobalConfiguration": {
-    "ServiceDiscoveryProvider": {
-      "Host": "localhost",
-      "Port": 8500,
-      "Type": "Consul"
-    }
-  }
+  ]
 }

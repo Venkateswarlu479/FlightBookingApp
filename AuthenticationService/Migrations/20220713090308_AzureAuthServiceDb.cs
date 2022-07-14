@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AuthenticationService.Migrations
 {
-    public partial class UserDataMigartion : Migration
+    public partial class AzureAuthServiceDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,12 +32,16 @@ namespace AuthenticationService.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmailId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastChangedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastChangedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    LastChangedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TokenExpires = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TokenCreated = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

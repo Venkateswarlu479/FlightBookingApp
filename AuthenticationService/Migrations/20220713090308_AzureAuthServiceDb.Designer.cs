@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AuthenticationService.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220627114022_UpdateUserDetails")]
-    partial class UpdateUserDetails
+    [Migration("20220713090308_AzureAuthServiceDb")]
+    partial class AzureAuthServiceDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,6 +63,9 @@ namespace AuthenticationService.Migrations
 
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("EmailId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastChangedBy")
                         .HasColumnType("nvarchar(max)");

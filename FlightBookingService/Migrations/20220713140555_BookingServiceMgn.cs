@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AuthenticationService.Migrations
+namespace FlightBookingService.Migrations
 {
-    public partial class EmailIdAdded : Migration
+    public partial class BookingServiceMgn : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "EmailId",
-                table: "Users",
+                name: "BookingClass",
+                table: "BookingDetails",
                 type: "nvarchar(max)",
                 nullable: true);
         }
@@ -16,8 +16,8 @@ namespace AuthenticationService.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "EmailId",
-                table: "Users");
+                name: "BookingClass",
+                table: "BookingDetails");
         }
     }
 }
